@@ -1,0 +1,27 @@
+body {
+	height: 500px;
+	background-color: red;
+	overflow: hidden;
+	margin-top: 0;
+	margin-left: 0;
+	position: relative;
+}
+
+#score {
+	position: absolute:;
+}
+
+.random {
+	background-color: yellow;
+	width: 25px;
+	height: 25px;
+}
+
+.snake {
+	background-color: green;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: 10px;
+}
