@@ -1,5 +1,6 @@
-# js-snake
-snake game in vanilla js
+# Js-Snake
+Im making a simple Snake game in vanilla Javascript to test collision detection and practice basic javascript.
+
 # To do
 
 - [x] Add snake.
