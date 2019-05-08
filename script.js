@@ -1,5 +1,5 @@
 let score = null;
-let marginTop = 0;
+let marginTop = null;
 let marginLeft = null;
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -8,26 +8,18 @@ document.addEventListener("DOMContentLoaded", function(){
 	setKeyEvent();
 });
 
-
-function randomPos(a, b){
-	return Math.random() * a - b;
-}
-
-function selectDiv(){
-	let random = document.getElementsByClassName("random")[0];
-	random.addEventListener("mouseover", deleteDiv)
-}
-
 function createDiv() {
 	let div = document.createElement("div");
-	let body = document.getElementsByTagName("body")[0];
-	let clientHeight = document.body.clientHeight;
-	let clientWidth = document.body.clientWidth;
-	div.style.marginTop = randomPos(clientHeight, div.style.height) + "px";
-	div.style.marginLeft = randomPos(clientWidth, div.style.width) + "px";
+	let gameArea = document.getElementById("game-area");
+
+	let position = function(a, b){
+		return Math.random() * a - b;
+	}
+
+	div.style.marginTop = position(gameArea.offsetHeight, div.style.height) + "px";
+	div.style.marginLeft = position(gameArea.offsetWidth, div.style.width) + "px";
 	div.setAttribute("class", "random")
-	body.appendChild(div);
-	selectDiv();
+	gameArea.appendChild(div);
 }
 
 
@@ -41,14 +33,14 @@ function deleteDiv() {
 function updateScore(){
 	let showScore = document.getElementById("score");
 	score++;
-	showScore.innerHTML = score;
+	showScore.innerHTML = "Score= " + score;
 }
 
 function createSnake() {
 	let div = document.createElement("div");
-	let body = document.getElementsByTagName("body")[0];
+	let gameArea = document.getElementById("game-area");
 	div.setAttribute("class", "snake")
-	body.appendChild(div);
+	gameArea.appendChild(div);
 }
 
 
@@ -64,21 +56,25 @@ function moveSnake(event) {
 		marginTop -= 2
 		snake.style.marginTop = marginTop + "px";
 		distance()
+		test();
 		break;
 		case 40:
 		marginTop += 2;
 		snake.style.marginTop = marginTop + "px"
 		distance();
+		test();
 		break;
 		case 37:
 		marginLeft -= 2;
 		snake.style.marginLeft = marginLeft + "px";
 		distance();
+		test();
 		break;
 		case 39:
 		marginLeft += 2;
 		snake.style.marginLeft = marginLeft + "px";
 		distance();
+		test();
 		break;
 	}
 }
@@ -106,4 +102,17 @@ function distance() {
 	let snake = document.getElementsByClassName("snake")[0];
  	let random = document.getElementsByClassName("random")[0];
  	getDistanceBetweenElements(snake, random);
+ }
+
+ function test(a) {
+ 	let snake = document.getElementsByClassName("snake")[0];
+ 	let top = parseInt(window.getComputedStyle(snake).marginTop);
+ 	let left = parseInt(window.getComputedStyle(snake).marginLeft);
+ 	if(top <= 0) {
+ 		snake.style.marginTop = 0 + "px";
+ 		//console.log(top);
+ 		console.log(left);
+ 	} else if(left <= 0) {
+ 		snake.style.marginLeft = 0 + "px";
+ 	}
  }
