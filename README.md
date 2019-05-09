@@ -21,3 +21,4 @@ or into yourself, you can move using the arrow keys
 - [ ] Make snake grow if touch food.
 - [ ] Detect colition if the snake touches itself.
 - [ ] Make the UI for the game.
+- [ ] Fix a bug that make food apear outside the game area.
