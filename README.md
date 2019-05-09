@@ -10,6 +10,6 @@ Im making a simple Snake game in vanilla Javascript to test collision detection 
 - [ ] Make snake grow if touch food.
 - [ ] Make snake move automatically.
 - [x] Set game area and detect colitions.
-- [ ] Need to fix some bugs with limits of the game area.
+- [x] Fix some bugs with limits of the game area.
 - [ ] Detect colition if the snake touches itself.
 - [ ] Make the UI for the game.
