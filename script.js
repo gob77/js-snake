@@ -1,6 +1,8 @@
-let score = null;
-let marginTop = null;
-let marginLeft = null;
+const test = {
+	score: null,
+	marginTop: null,
+	marginLeft: null
+}
 
 document.addEventListener("DOMContentLoaded", function(){
 	createFood();
@@ -8,23 +10,53 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 function createSnake() {
-	let div = document.createElement("div");
+	let snake = document.createElement("div");
 	let gameArea = document.getElementById("game-area");
-	div.setAttribute("class", "snake")
-	gameArea.appendChild(div);
-	setMovement();
+	snake.setAttribute("class", "snake");
+	gameArea.appendChild(snake);
+	setSnakeMovement();
 }
 
-let setMovement = () =>	document.addEventListener("keydown", moveSnake);
+let setSnakeMovement = () =>	document.addEventListener("keydown", moveSnake);
+
+function moveSnake(event) {
+	let snake = document.getElementsByClassName("snake")[0];
+	let e = event.keyCode;
+	switch(e) {
+		case 38: 		
+		test.marginTop -= 10;
+		snake.style.marginTop = `${test.marginTop}px`;
+		distance();
+		areaLimits();
+		break;
+		case 40:
+		test.marginTop += 10;
+		snake.style.marginTop = `${test.marginTop}px`;
+		distance();
+		areaLimits();
+		break;
+		case 37:
+		test.marginLeft -= 10;
+		snake.style.marginLeft = `${test.marginLeft}px`;
+		distance();
+		areaLimits();
+		break;
+		case 39:
+		test.marginLeft += 10;
+		snake.style.marginLeft = `${test.marginLeft}px`;
+		distance();
+		areaLimits();
+		break;
+	}
+}
 
 function createFood() {
-	let div = document.createElement("div");
-	let gameArea = document.getElementById("game-area");
+	let [food, gameArea] = [document.createElement("div"), document.getElementById("game-area")]; 
 	let position = (a, b) => Math.round(Math.random() * (a - b) / 10 ) * 10;
-	div.style.marginTop = `${position(gameArea.offsetHeight, div.style.height)}px`;
-	div.style.marginLeft = `${position(gameArea.offsetWidth, div.style.width)}px`;
-	div.setAttribute("class", "food")
-	gameArea.appendChild(div);
+	food.style.marginTop = `${position(gameArea.offsetHeight, food.style.height)}px`;
+	food.style.marginLeft = `${position(gameArea.offsetWidth, food.style.width)}px`;
+	food.setAttribute("class", "food")
+	gameArea.appendChild(food);
 }
 
 function deleteFood() {
@@ -36,39 +68,8 @@ function deleteFood() {
 
 function updateScore(){
 	let showScore = document.getElementById("score");
-	score++;
-	showScore.innerHTML = "Score = " + score;
-}
-
-function moveSnake(event) {
-	let snake = document.getElementsByClassName("snake")[0];
-	let e = event.keyCode;
-	switch(e) {
-		case 38: 		
-		marginTop -= 10
-		snake.style.marginTop = `${marginTop}px`;
-		distance()
-		areaLimits();
-		break;
-		case 40:
-		marginTop += 10;
-		snake.style.marginTop = `${marginTop}px`;
-		distance();
-		areaLimits();
-		break;
-		case 37:
-		marginLeft -= 10;
-		snake.style.marginLeft = `${marginLeft}px`;
-		distance();
-		areaLimits();
-		break;
-		case 39:
-		marginLeft += 10;
-		snake.style.marginLeft = `${marginLeft}px`;
-		distance();
-		areaLimits();
-		break;
-	}
+	test.score++;
+	showScore.innerHTML = `Score = ${test.score}`;
 }
 
  function getPositionAtCenter(element) {
@@ -95,24 +96,22 @@ function distance() {
  }
 
 function areaLimits () {
-	let area = document.getElementById("game-area");
-	let snake = document.getElementsByClassName("snake")[0];
-	let top = window.getComputedStyle(snake).marginTop;
-	let left = window.getComputedStyle(snake).marginLeft;
-	let areaHeight = window.getComputedStyle(area).height;
-	let areaWidth = window.getComputedStyle(area).width;
+	let [area, snake] = [document.getElementById("game-area"), document.getElementsByClassName("snake")[0]];
+	let [top, left] = [window.getComputedStyle(snake).marginTop, window.getComputedStyle(snake).marginLeft];
+	let [sHeight, sWidth] = [window.getComputedStyle(snake).height, window.getComputedStyle(snake).width];
+	let [aHeight, aWidth] = [window.getComputedStyle(area).height, window.getComputedStyle(area).width];
 
-	if(parseInt(top) > parseInt(areaHeight) - parseInt(window.getComputedStyle(snake).height)){
-		snake.style.marginTop = 390 + "px";
-		marginTop = 390;
-	} else if(parseInt(left) > parseInt(areaWidth) - parseInt(window.getComputedStyle(snake).width)){
-		snake.style.marginLeft = 590 + "px";
-		marginLeft = 590;
+	if(parseInt(top) > parseInt(aHeight) - parseInt(sHeight)){
+		snake.style.marginTop = `390px`;
+		test.marginTop = 390;
+	} else if(parseInt(left) > parseInt(aWidth) - parseInt(sWidth)){
+		snake.style.marginLeft = `590px`;
+		test.marginLeft = 590;
 	} else if(parseInt(top) < 0) {
-		snake.style.marginTop = 0 + "px";
-		marginTop = 0;
+		snake.style.marginTop = `0px`;
+		test.marginTop = 0;
 	} else if(parseInt(left) < 0) {
-		snake.style.marginLeft = 0 + "px";
-		marginLeft = 0;
+		snake.style.marginLeft = `0px`;
+		test.marginLeft = 0;
 	}
 }
